@@ -1,0 +1,1359 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicios de Estequiometría Química</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --success-color: #27ae60;
+            --danger-color: #e74c3c;
+            --warning-color: #f39c12;
+            --dark-bg: #1a1a2e;
+            --card-bg: #16213e;
+            --text-light: #ecf0f1;
+            --border-color: #34495e;
+            --stoichiometry-color: #e67e22;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%);
+            min-height: 100vh;
+            color: var(--text-light);
+            padding: 20px 0;
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header-section {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+        }
+
+        .header-section h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, var(--stoichiometry-color), var(--warning-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .header-section p {
+            font-size: 1.1rem;
+            color: #bdc3c7;
+        }
+
+        .section-header {
+            text-align: center;
+            margin: 50px 0 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+        }
+
+        .section-header h2 {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .stoichiometry-header h2 {
+            background: linear-gradient(45deg, var(--stoichiometry-color), var(--warning-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .exercise-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .exercise-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .exercise-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--stoichiometry-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--stoichiometry-color);
+        }
+
+        .exercise-content {
+            line-height: 1.8;
+            color: #ecf0f1;
+        }
+
+        .question-block {
+            background: rgba(230, 126, 34, 0.1);
+            border-left: 4px solid var(--stoichiometry-color);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .answer-section {
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+        }
+
+        .answer-input {
+            width: 100%;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            color: var(--text-light);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .answer-input:focus {
+            outline: none;
+            border-color: var(--stoichiometry-color);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 10px rgba(230, 126, 34, 0.3);
+        }
+
+        .answer-input.correct {
+            border-color: var(--success-color);
+            background: rgba(39, 174, 96, 0.1);
+            box-shadow: 0 0 10px rgba(39, 174, 96, 0.3);
+        }
+
+        .answer-input.incorrect {
+            border-color: var(--danger-color);
+            background: rgba(231, 76, 60, 0.1);
+            box-shadow: 0 0 10px rgba(231, 76, 60, 0.3);
+        }
+
+        .btn-check {
+            background: linear-gradient(45deg, var(--stoichiometry-color), var(--success-color));
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .btn-check:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(230, 126, 34, 0.4);
+        }
+
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .feedback.correct {
+            background: rgba(39, 174, 96, 0.2);
+            border: 1px solid var(--success-color);
+            color: var(--success-color);
+        }
+
+        .feedback.incorrect {
+            background: rgba(231, 76, 60, 0.2);
+            border: 1px solid var(--danger-color);
+            color: var(--danger-color);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .info-badge {
+            display: inline-block;
+            background: var(--warning-color);
+            color: var(--dark-bg);
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin: 5px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            color: #95a5a6;
+        }
+
+        .structure-hint {
+            background: rgba(243, 156, 18, 0.1);
+            border: 1px solid var(--warning-color);
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-size: 0.9rem;
+        }
+
+        .exercise-number {
+            display: inline-block;
+            background: var(--stoichiometry-color);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .answers-section {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 40px 0;
+            border: 2px solid var(--warning-color);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .answers-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--warning-color);
+        }
+
+        .answers-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--warning-color);
+        }
+
+        .btn-toggle-answers {
+            background: var(--warning-color);
+            color: var(--dark-bg);
+            border: none;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-toggle-answers:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(243, 156, 18, 0.4);
+        }
+
+        .answers-content {
+            display: none;
+        }
+
+        .answers-content.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .answer-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--success-color);
+        }
+
+        .answer-item h4 {
+            color: var(--success-color);
+            margin-bottom: 10px;
+        }
+
+        .answer-item p {
+            margin: 5px 0;
+            color: #ecf0f1;
+        }
+
+        .answer-item strong {
+            color: var(--secondary-color);
+        }
+
+        .warning-message {
+            background: rgba(243, 156, 18, 0.2);
+            border: 1px solid var(--warning-color);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            color: var(--warning-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <header class="header-section">
+            <h1><i class="fas fa-balance-scale"></i> Ejercicios de Estequiometría Química</h1>
+            <p>Facultad de Farmacia - Universidad</p>
+            <p><span class="info-badge">Cálculos Estequiométricos</span> <span class="info-badge">Reacciones Químicas</span></p>
+        </header>
+
+        <main>
+            <!-- Sección de Estequiometría -->
+            <section class="section-header stoichiometry-header">
+                <h2><i class="fas fa-balance-scale"></i> Estequiometría Química</h2>
+                <p>Cálculos estequiométricos y reacciones químicas</p>
+            </section>
+
+            <!-- Ejercicio de Estequiometría 1 -->
+            <div class="exercise-card stoichiometry-exercise">
+                <h2 class="exercise-title"><span class="exercise-number">1</span><i class="fas fa-balance-scale"></i> Estequiometría - Ejercicio 1</h2>
+                <div class="exercise-content">
+                    <p>Si se añaden <strong>2,00 g de nitrato de plomo (II)</strong> a una disolución acuosa que contiene <strong>1,00 g de yoduro de potasio</strong> ocurre una reacción de intercambio.</p>
+                    
+                    <div class="question-block">
+                        <p><strong>a) Calcule la masa de yoduro de plomo (II) obtenida.</strong></p>
+                    </div>
+                    
+                    <div class="answer-section">
+                        <label for="answer1a" class="form-label">Respuesta (g):</label>
+                        <input type="text" id="answer1a" class="answer-input" placeholder="">
+                        <button class="btn-check" onclick="checkAnswer('1a', '2.11')">
+                            <i class="fas fa-check"></i> Verificar
+                        </button>
+                        <div id="feedback1a" class="feedback"></div>
+                    </div>
+
+                    <div class="question-block">
+                        <p><strong>b) Identifique el reactivo limitante.</strong></p>
+                    </div>
+                    
+                    <div class="answer-section">
+                        <label for="answer1b" class="form-label">Reactivo limitante:</label>
+                        <input type="text" id="answer1b" class="answer-input" placeholder="">
+                        <button class="btn-check" onclick="checkAnswer('1b', 'ki')">
+                            <i class="fas fa-check"></i> Verificar
+                        </button>
+                        <div id="feedback1b" class="feedback"></div>
+                    </div>
+
+                    <div class="structure-hint">
+                        <i class="fas fa-info-circle"></i> Datos: Masa molar Pb(NO₃)₂ = 331,2 g/mol; KI = 166,0 g/mol; PbI₂ = 461,0 g/mol
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ejercicio de Estequiometría 2 -->
+            <div class="exercise-card stoichiometry-exercise">
+                <h2 class="exercise-title"><span class="exercise-number">2</span><i class="fas fa-balance-scale"></i> Estequiometría - Ejercicio 2</h2>
+                <div class="exercise-content">
+                    <p>Se hacen reaccionar <strong>5,00 g de magnesio</strong> con <strong>10,0 g de ácido clorhídrico</strong> para producir cloruro de magnesio e hidrógeno gas.</p>
+                    
+                    <div class="question-block">
+                        <p><strong>a) Calcule el volumen de hidrógeno gas producido a 25°C y 1 atm.</strong></p>
+                    </div>
+                    
+                    <div class="answer-section">
+                        <label for="answer2a" class="form-label">Respuesta (L):</label>
+                        <input type="text" id="answer2a" class="answer-input" placeholder="">
+                        <button class="btn-check" onclick="checkAnswer('2a', '4.63')">
+                            <i class="fas fa-check"></i> Verificar
+                        </button>
+                        <div id="feedback2a" class="feedback"></div>
+                    </div>
+
+                    <div class="question-block">
+                        <p><strong>b) Calcule la masa de cloruro de magnesio formado.</strong></p>
+                    </div>
+                    
+                    <div class="answer-section">
+                        <label for="answer2b" class="form-label">Respuesta (g):</label>
+                        <input type="text" id="answer2b" class="answer-input" placeholder="">
+                        <button class="btn-check" onclick="checkAnswer('2b', '19.5')">
+                            <i class="fas fa-check"></i> Verificar
+                        </button>
+                        <div id="feedback2b" class="feedback"></div>
+                    </div>
+
+                    <div class="structure-hint">
+                        <i class="fas fa-info-circle"></i> Datos: Masa molar Mg = 24,3 g/mol; HCl = 36,5 g/mol; MgCl₂ = 95,2 g/mol; R = 0,082 L·atm/mol·K
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ejercicio de Estequiometría 3 -->
+            <div class="exercise-card stoichiometry-exercise">
+                <h2 class="exercise-title"><span class="exercise-number">3</span><i class="fas fa-balance-scale"></i> Estequiometría - Ejercicio 3</h2>
+                <div class="exercise-content">
+                    <p>En la combustión de <strong>4,00 g de metano</strong> con oxígeno en exceso, se produce dióxido de carbono y agua.</p>
+                    
+                    <div class="question-block">
+                        <p><strong>a) Calcule el volumen de oxígeno consumido a CNPT.</strong></p>
+                    </div>
+                    
+                    <div class="answer-section">
+                        <label for="answer3a" class="form-label">Respuesta (L):</label>
+                        <input type="text" id="answer3a" class="answer-input" placeholder="">
+                        <button class="btn-check" onclick="checkAnswer('3a', '11.2')">
+                            <i class="fas fa-check"></i> Verificar
+                        </button>
+                        <div id="feedback3a" class="feedback"></div>
+                    </div>
+
+                    <div class="question-block">
+                        <p><strong>b) Calcule la masa de agua producida.</strong></p>
+                    </div>
+                    
+                    <div class="answer-section">
+                        <label for="answer3b" class="form-label">Respuesta (g):</label>
+                        <input type="text" id="answer3b" class="answer-input" placeholder="">
+                        <button class="btn-check" onclick="checkAnswer('3b', '9.00')">
+                            <i class="fas fa-check"></i> Verificar
+                        </button>
+                        <div id="feedback3b" class="feedback"></div>
+                    </div>
+
+                    <div class="structure-hint">
+                        <i class="fas fa-info-circle"></i> Datos: Masa molar CH₄ = 16,0 g/mol; H₂O = 18,0 g/mol; Vmolar = 22,4 L/mol
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ejercicio de Estequiometría 4 -->
+            <div class="exercise-card stoichiometry-exercise">
+                <h2 class="exercise-title"><span class="exercise-number">4</span><i class="fas fa-balance-scale"></i> Estequiometría - Ejercicio 4</h2>
+                <div class="exercise-content">
+                    <p>Se mezclan <strong>3,00 g de aluminio</strong> con <strong>10,0 g de cloro gas</strong> para producir cloruro de aluminio.</p>
+                    
+                    <div class="question-block">
+                        <p><strong>a) Calcule la masa de cloruro de aluminio formado.</strong></p>
+                    </div>
+                    
+                    <div class="answer-section">
+                        <label for="answer4a" class="form-label">Respuesta (g):</label>
+                        <input type="text" id="answer4a" class="answer-input" placeholder="">
+                        <button class="btn-check" onclick="checkAnswer('4a', '14.9')">
+                            <i class="fas fa-check"></i> Verificar
+                        </button>
+                        <div id="feedback4a" class="feedback"></div>
+                    </div>
+
+                    <div class="question-block">
+                        <p><strong>b) Calcule el rendimiento porcentual si se obtuvieron 12,0 g de producto.</strong></p>
+                    </div>
+                    
+                    <div class="answer-section">
+                        <label for="answer4b" class="form-label">Respuesta (%):</label>
+                        <input type="text" id="answer4b" class="answer-input" placeholder="">
+                        <button class="btn-check" onclick="checkAnswer('4b', '80.5')">
+                            <i class="fas fa-check"></i> Verificar
+                        </button>
+                        <div id="feedback4b" class="feedback"></div>
+                    </div>
+
+                    <div class="structure-hint">
+                        <i class="fas fa-info-circle"></i> Datos: Masa molar Al = 27,0 g/mol; Cl₂ = 71,0 g/mol; AlCl₃ = 133,5 g/mol
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ejercicio de Estequiometría 5 -->
+            <div class="exercise-card stoichiometry-exercise">
+                <h2 class="exercise-title"><span class="exercise-number">5</span><i class="fas fa-balance-scale"></i> Estequiometría - Ejercicio 5</h2>
+                <div class="exercise-content">
+                    <p>Se hacen reaccionar <strong>2,50 g de carbonato de calcio</strong> con <strong>50,0 mL de ácido clorhídrico 0,50 M</strong>.</p>
+                    
+                    <div class="question-block">
+                        <p><strong>a) Calcule el volumen de CO₂ producido a 25°C y 1 atm.</strong></p>
+                    </div>
+                    
+                    <div class="answer-section">
+                        <label for="answer5a" class="form-label">Respuesta (L):</label>
+                        <input type="text" id="answer5a" class="answer-input" placeholder="">
+                        <button class="btn-check" onclick="checkAnswer('5a', '0.280')">
+                            <i class="fas fa-check"></i> Verificar
+                        </button>
+                        <div id="feedback5a" class="feedback"></div>
+                    </div>
+
+                    <div class="question-block">
+                        <p><strong>b) Calcule la concentración del cloruro de calcio formado.</strong></p>
+                    </div>
+                    
+                    <div class="answer-section">
+                        <label for="answer5b" class="form-label">Respuesta (M):</label>
+                        <input type="text" id="answer5b" class="answer-input" placeholder="">
+                        <button class="btn-check" onclick="checkAnswer('5b', '0.250')">
+                            <i class="fas fa-check"></i> Verificar
+                        </button>
+                        <div id="feedback5b" class="feedback"></div>
+                    </div>
+
+                    <div class="structure-hint">
+                        <i class="fas fa-info-circle"></i> Datos: Masa molar CaCO₃ = 100,1 g/mol; R = 0,082 L·atm/mol·K
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ejercicio de Estequiometría 6 -->
+            <div class="exercise-card stoichiometry-exercise">
+                <h2 class="exercise-title"><span class="exercise-number">6</span><i class="fas fa-balance-scale"></i> Estequiometría - Ejercicio 6</h2>
+                <div class="exercise-content">
+                    <p>Se descomponen térmicamente <strong>5,00 g de clorato de potasio</strong> para producir cloruro de potasio y oxígeno gas.</p>
+                    
+                    <div class="question-block">
+                        <p><strong>a) Calcule el volumen de oxígeno producido a CNPT.</strong></p>
+                    </div>
+                    
+                    <div class="answer-section">
+                        <label for="answer6a" class="form-label">Respuesta (L):</label>
+                        <input type="text" id="answer6a" class="answer-input" placeholder="">
+                        <button class="btn-check" onclick="checkAnswer('6a', '1.37')">
+                            <i class="fas fa-check"></i> Verificar
+                        </button>
+                        <div id="feedback6a" class="feedback"></div>
+                    </div>
+
+                    <div class="question-block">
+                        <p><strong>b) Calcule la masa de cloruro de potasio obtenido.</strong></p>
+                    </div>
+                    
+                    <div class="answer-section">
+                        <label for="answer6b" class="form-label">Respuesta (g):</label>
+                        <input type="text" id="answer6b" class="answer-input" placeholder="">
+                        <button class="btn-check" onclick="checkAnswer('6b', '3.04')">
+                            <i class="fas fa-check"></i> Verificar
+                        </button>
+                        <div id="feedback6b" class="feedback"></div>
+                    </div>
+
+                    <div class="structure-hint">
+                        <i class="fas fa-info-circle"></i> Datos: Masa molar KClO₃ = 122,6 g/mol; KCl = 74,6 g/mol; Vmolar = 22,4 L/mol
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ejercicio de Estequiometría 7 -->
+            <div class="exercise-card stoichiometry-exercise">
+                <h2 class="exercise-title"><span class="exercise-number">7</span><i class="fas fa-balance-scale"></i> Estequiometría - Ejercicio 7</h2>
+                <div class="exercise-content">
+                    <p>Se neutralizan <strong>25,0 mL de ácido sulfúrico 0,20 M</strong> con <strong>30,0 mL de hidróxido de sodio 0,25 M</strong>.</p>
+                    
+                    <div class="question-block">
+                        <p><strong>a) Calcule la masa de sulfato de sodio formado.</strong></p>
+                    </div>
+                    
+                    <div class="answer-section">
+                        <label for="answer7a" class="form-label">Respuesta (g):</label>
+                        <input type="text" id="answer7a" class="answer-input" placeholder="">
+                        <button class="btn-check" onclick="checkAnswer('7a', '0.355')">
+                            <i class="fas fa-check"></i> Verificar
+                        </button>
+                        <div id="feedback7a" class="feedback"></div>
+                    </div>
+
+                    <div class="question-block">
+                        <p><strong>b) Calcule la concentración del reactivo en exceso final.</strong></p>
+                    </div>
+                    
+                    <div class="answer-section">
+                        <label for="answer7b" class="form-label">Respuesta (M):</label>
+                        <input type="text" id="answer7b" class="answer-input" placeholder="">
+                        <button class="btn-check" onclick="checkAnswer('7b', '0.017')">
+                            <i class="fas fa-check"></i> Verificar
+                        </button>
+                        <div id="feedback7b" class="feedback"></div>
+                    </div>
+
+                    <div class="structure-hint">
+                        <i class="fas fa-info-circle"></i> Datos: Masa molar Na₂SO₄ = 142,0 g/mol
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ejercicio de Estequiometría 8 -->
+            <div class="exercise-card stoichiometry-exercise">
+                <h2 class="exercise-title"><span class="exercise-number">8</span><i class="fas fa-balance-scale"></i> Estequiometría - Ejercicio 8</h2>
+                <div class="exercise-content">
+                    <p>Se producen <strong>10,0 L de amoníaco gas</strong> a CNPT mediante la reacción de nitrógeno e hidrógeno.</p>
+                    
+                    <div class="question-block">
+                        <p><strong>a) Calcule la masa de nitrógeno necesaria.</strong></p>
+                    </div>
+                    
+                    <div class="answer-section">
+                        <label for="answer8a" class="form-label">Respuesta (g):</label>
+                        <input type="text" id="answer8a" class="answer-input" placeholder="">
+                        <button class="btn-check" onclick="checkAnswer('8a', '6.25')">
+                            <i class="fas fa-check"></i> Verificar
+                        </button>
+                        <div id="feedback8a" class="feedback"></div>
+                    </div>
+
+                    <div class="question-block">
+                        <p><strong>b) Calcule el volumen de hidrógeno requerido a las mismas condiciones.</strong></p>
+                    </div>
+                    
+                    <div class="answer-section">
+                        <label for="answer8b" class="form-label">Respuesta (L):</label>
+                        <input type="text" id="answer8b" class="answer-input" placeholder="">
+                        <button class="btn-check" onclick="checkAnswer('8b', '15.0')">
+                            <i class="fas fa-check"></i> Verificar
+                        </button>
+                        <div id="feedback8b" class="feedback"></div>
+                    </div>
+
+                    <div class="structure-hint">
+                        <i class="fas fa-info-circle"></i> Datos: Masa molar N₂ = 28,0 g/mol; Vmolar = 22,4 L/mol
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ejercicio de Estequiometría 9 -->
+            <div class="exercise-card stoichiometry-exercise">
+                <h2 class="exercise-title"><span class="exercise-number">9</span><i class="fas fa-balance-scale"></i> Estequiometría - Ejercicio 9</h2>
+                <div class="exercise-content">
+                    <p>Se reaccionan <strong>4,00 g de zinc</strong> con <strong>100 mL de ácido sulfúrico 0,50 M</strong> para producir sulfato de zinc e hidrógeno.</p>
+                    
+                    <div class="question-block">
+                        <p><strong>a) Calcule el volumen de hidrógeno producido a 25°C y 1 atm.</strong></p>
+                    </div>
+                    
+                    <div class="answer-section">
+                        <label for="answer9a" class="form-label">Respuesta (L):</label>
+                        <input type="text" id="answer9a" class="answer-input" placeholder="">
+                        <button class="btn-check" onclick="checkAnswer('9a', '1.49')">
+                            <i class="fas fa-check"></i> Verificar
+                        </button>
+                        <div id="feedback9a" class="feedback"></div>
+                    </div>
+
+                    <div class="question-block">
+                        <p><strong>b) Calcule la masa de sulfato de zinc formado.</strong></p>
+                    </div>
+                    
+                    <div class="answer-section">
+                        <label for="answer9b" class="form-label">Respuesta (g):</label>
+                        <input type="text" id="answer9b" class="answer-input" placeholder="">
+                        <button class="btn-check" onclick="checkAnswer('9b', '9.87')">
+                            <i class="fas fa-check"></i> Verificar
+                        </button>
+                        <div id="feedback9b" class="feedback"></div>
+                    </div>
+
+                    <div class="structure-hint">
+                        <i class="fas fa-info-circle"></i> Datos: Masa molar Zn = 65,4 g/mol; ZnSO₄ = 161,5 g/mol; R = 0,082 L·atm/mol·K
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ejercicio de Estequiometría 10 -->
+            <div class="exercise-card stoichiometry-exercise">
+                <h2 class="exercise-title"><span class="exercise-number">10</span><i class="fas fa-balance-scale"></i> Estequiometría - Ejercicio 10</h2>
+                <div class="exercise-content">
+                    <p>Se prepara óxido de magnesio calentando <strong>3,00 g de carbonato de magnesio</strong> hasta su descomposición completa.</p>
+                    
+                    <div class="question-block">
+                        <p><strong>a) Calcule la masa de óxido de magnesio obtenido.</strong></p>
+                    </div>
+                    
+                    <div class="answer-section">
+                        <label for="answer10a" class="form-label">Respuesta (g):</label>
+                        <input type="text" id="answer10a" class="answer-input" placeholder="">
+                        <button class="btn-check" onclick="checkAnswer('10a', '1.44')">
+                            <i class="fas fa-check"></i> Verificar
+                        </button>
+                        <div id="feedback10a" class="feedback"></div>
+                    </div>
+
+                    <div class="question-block">
+                        <p><strong>b) Calcule el volumen de CO₂ liberado a CNPT.</strong></p>
+                    </div>
+                    
+                    <div class="answer-section">
+                        <label for="answer10b" class="form-label">Respuesta (L):</label>
+                        <input type="text" id="answer10b" class="answer-input" placeholder="">
+                        <button class="btn-check" onclick="checkAnswer('10b', '0.672')">
+                            <i class="fas fa-check"></i> Verificar
+                        </button>
+                        <div id="feedback10b" class="feedback"></div>
+                    </div>
+
+                    <div class="structure-hint">
+                        <i class="fas fa-info-circle"></i> Datos: Masa molar MgCO₃ = 84,3 g/mol; MgO = 40,3 g/mol; Vmolar = 22,4 L/mol
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ejercicio de Estequiometría 11 -->
+            <div class="exercise-card stoichiometry-exercise">
+                <h2 class="exercise-title"><span class="exercise-number">11</span><i class="fas fa-balance-scale"></i> Estequiometría - Ejercicio 11</h2>
+                <div class="exercise-content">
+                    <p>Se hacen reaccionar <strong>2,00 g de hierro</strong> con <strong>1,50 g de oxígeno</strong> para formar óxido de hierro (III).</p>
+                    
+                    <div class="question-block">
+                        <p><strong>a) Calcule la masa de óxido de hierro (III) formado.</strong></p>
+                    </div>
+                    
+                    <div class="answer-section">
+                        <label for="answer11a" class="form-label">Respuesta (g):</label>
+                        <input type="text" id="answer11a" class="answer-input" placeholder="">
+                        <button class="btn-check" onclick="checkAnswer('11a', '2.86')">
+                            <i class="fas fa-check"></i> Verificar
+                        </button>
+                        <div id="feedback11a" class="feedback"></div>
+                    </div>
+
+                    <div class="question-block">
+                        <p><strong>b) Calcule el rendimiento porcentual si se obtuvieron 2,50 g de producto.</strong></p>
+                    </div>
+                    
+                    <div class="answer-section">
+                        <label for="answer11b" class="form-label">Respuesta (%):</label>
+                        <input type="text" id="answer11b" class="answer-input" placeholder="">
+                        <button class="btn-check" onclick="checkAnswer('11b', '87.4')">
+                            <i class="fas fa-check"></i> Verificar
+                        </button>
+                        <div id="feedback11b" class="feedback"></div>
+                    </div>
+
+                    <div class="structure-hint">
+                        <i class="fas fa-info-circle"></i> Datos: Masa molar Fe = 55,8 g/mol; O₂ = 32,0 g/mol; Fe₂O₃ = 159,7 g/mol
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ejercicio de Estequiometría 12 -->
+            <div class="exercise-card stoichiometry-exercise">
+                <h2 class="exercise-title"><span class="exercise-number">12</span><i class="fas fa-balance-scale"></i> Estequiometría - Ejercicio 12</h2>
+                <div class="exercise-content">
+                    <p>Se mezclan <strong>20,0 mL de ácido nítrico 0,30 M</strong> con <strong>15,0 mL de hidróxido de calcio 0,20 M</strong>.</p>
+                    
+                    <div class="question-block">
+                        <p><strong>a) Calcule la masa de nitrato de calcio formado.</strong></p>
+                    </div>
+                    
+                    <div class="answer-section">
+                        <label for="answer12a" class="form-label">Respuesta (g):</label>
+                        <input type="text" id="answer12a" class="answer-input" placeholder="">
+                        <button class="btn-check" onclick="checkAnswer('12a', '0.390')">
+                            <i class="fas fa-check"></i> Verificar
+                        </button>
+                        <div id="feedback12a" class="feedback"></div>
+                    </div>
+
+                    <div class="question-block">
+                        <p><strong>b) Calcule el pH de la disolución final.</strong></p>
+                    </div>
+                    
+                    <div class="answer-section">
+                        <label for="answer12b" class="form-label">Respuesta:</label>
+                        <input type="text" id="answer12b" class="answer-input" placeholder="">
+                        <button class="btn-check" onclick="checkAnswer('12b', '7')">
+                            <i class="fas fa-check"></i> Verificar
+                        </button>
+                        <div id="feedback12b" class="feedback"></div>
+                    </div>
+
+                    <div class="structure-hint">
+                        <i class="fas fa-info-circle"></i> Datos: Masa molar Ca(NO₃)₂ = 164,1 g/mol
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ejercicio de Estequiometría 13 -->
+            <div class="exercise-card stoichiometry-exercise">
+                <h2 class="exercise-title"><span class="exercise-number">13</span><i class="fas fa-balance-scale"></i> Estequiometría - Ejercicio 13</h2>
+                <div class="exercise-content">
+                    <p>Se descomponen <strong>8,00 g de peróxido de hidrógeno</strong> en agua y oxígeno gas.</p>
+                    
+                    <div class="question-block">
+                        <p><strong>a) Calcule el volumen de oxígeno producido a 25°C y 1 atm.</strong></p>
+                    </div>
+                    
+                    <div class="answer-section">
+                        <label for="answer13a" class="form-label">Respuesta (L):</label>
+                        <input type="text" id="answer13a" class="answer-input" placeholder="">
+                        <button class="btn-check" onclick="checkAnswer('13a', '2.64')">
+                            <i class="fas fa-check"></i> Verificar
+                        </button>
+                        <div id="feedback13a" class="feedback"></div>
+                    </div>
+
+                    <div class="question-block">
+                        <p><strong>b) Calcule la masa de agua formada.</strong></p>
+                    </div>
+                    
+                    <div class="answer-section">
+                        <label for="answer13b" class="form-label">Respuesta (g):</label>
+                        <input type="text" id="answer13b" class="answer-input" placeholder="">
+                        <button class="btn-check" onclick="checkAnswer('13b', '4.23')">
+                            <i class="fas fa-check"></i> Verificar
+                        </button>
+                        <div id="feedback13b" class="feedback"></div>
+                    </div>
+
+                    <div class="structure-hint">
+                        <i class="fas fa-info-circle"></i> Datos: Masa molar H₂O₂ = 34,0 g/mol; H₂O = 18,0 g/mol; R = 0,082 L·atm/mol·K
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ejercicio de Estequiometría 14 -->
+            <div class="exercise-card stoichiometry-exercise">
+                <h2 class="exercise-title"><span class="exercise-number">14</span><i class="fas fa-balance-scale"></i> Estequiometría - Ejercicio 14</h2>
+                <div class="exercise-content">
+                    <p>Se producen <strong>5,00 g de sulfato de cobre (II)</strong> haciendo reaccionar cobre metálico con ácido sulfúrico.</p>
+                    
+                    <div class="question-block">
+                        <p><strong>a) Calcule la masa de cobre necesaria.</strong></p>
+                    </div>
+                    
+                    <div class="answer-section">
+                        <label for="answer14a" class="form-label">Respuesta (g):</label>
+                        <input type="text" id="answer14a" class="answer-input" placeholder="">
+                        <button class="btn-check" onclick="checkAnswer('14a', '1.99')">
+                            <i class="fas fa-check"></i> Verificar
+                        </button>
+                        <div id="feedback14a" class="feedback"></div>
+                    </div>
+
+                    <div class="question-block">
+                        <p><strong>b) Calcule el volumen de dióxido de azufre producido a CNPT.</strong></p>
+                    </div>
+                    
+                    <div class="answer-section">
+                        <label for="answer14b" class="form-label">Respuesta (L):</label>
+                        <input type="text" id="answer14b" class="answer-input" placeholder="">
+                        <button class="btn-check" onclick="checkAnswer('14b', '0.704')">
+                            <i class="fas fa-check"></i> Verificar
+                        </button>
+                        <div id="feedback14b" class="feedback"></div>
+                    </div>
+
+                    <div class="structure-hint">
+                        <i class="fas fa-info-circle"></i> Datos: Masa molar Cu = 63,5 g/mol; CuSO₄ = 159,6 g/mol; Vmolar = 22,4 L/mol
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ejercicio de Estequiometría 15 -->
+            <div class="exercise-card stoichiometry-exercise">
+                <h2 class="exercise-title"><span class="exercise-number">15</span><i class="fas fa-balance-scale"></i> Estequiometría - Ejercicio 15</h2>
+                <div class="exercise-content">
+                    <p>Se reaccionan <strong>3,00 g de sodio</strong> con <strong>100 mL de agua</strong> para producir hidróxido de sodio e hidrógeno.</p>
+                    
+                    <div class="question-block">
+                        <p><strong>a) Calcule el volumen de hidrógeno producido a 25°C y 1 atm.</strong></p>
+                    </div>
+                    
+                    <div class="answer-section">
+                        <label for="answer15a" class="form-label">Respuesta (L):</label>
+                        <input type="text" id="answer15a" class="answer-input" placeholder="">
+                        <button class="btn-check" onclick="checkAnswer('15a', '1.63')">
+                            <i class="fas fa-check"></i> Verificar
+                        </button>
+                        <div id="feedback15a" class="feedback"></div>
+                    </div>
+
+                    <div class="question-block">
+                        <p><strong>b) Calcule la concentración de la disolución de hidróxido de sodio formada.</strong></p>
+                    </div>
+                    
+                    <div class="answer-section">
+                        <label for="answer15b" class="form-label">Respuesta (M):</label>
+                        <input type="text" id="answer15b" class="answer-input" placeholder="">
+                        <button class="btn-check" onclick="checkAnswer('15b', '0.652')">
+                            <i class="fas fa-check"></i> Verificar
+                        </button>
+                        <div id="feedback15b" class="feedback"></div>
+                    </div>
+
+                    <div class="structure-hint">
+                        <i class="fas fa-info-circle"></i> Datos: Masa molar Na = 23,0 g/mol; NaOH = 40,0 g/mol; R = 0,2 L·atm/mol·K
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ejercicio de Estequiometría 16 -->
+            <div class="exercise-card stoichiometry-exercise">
+                <h2 class="exercise-title"><span class="exercise-number">16</span><i class="fas fa-balance-scale"></i> Estequiometría - Ejercicio 16</h2>
+                <div class="exercise-content">
+                    <p>Se prepara cloro gas haciendo reaccionar <strong>10,0 g de dióxido de manganeso</strong> con <strong>50,0 mL de ácido clorhídrico 6,0 M</strong>.</p>
+                    
+                    <div class="question-block">
+                        <p><strong>a) Calcule el volumen de cloro producido a CNPT.</strong></p>
+                    </div>
+                    
+                    <div class="answer-section">
+                        <label for="answer16a" class="form-label">Respuesta (L):</label>
+                        <input type="text" id="answer16a" class="answer-input" placeholder="">
+                        <button class="btn-check" onclick="checkAnswer('16a', '2.69')">
+                            <i class="fas fa-check"></i> Verificar
+                        </button>
+                        <div id="feedback16a" class="feedback"></div>
+                    </div>
+
+                    <div class="question-block">
+                        <p><strong>b) Calcule la masa de cloruro de manganeso formado.</strong></p>
+                    </div>
+                    
+                    <div class="answer-section">
+                        <label for="answer16b" class="form-label">Respuesta (g):</label>
+                        <input type="text" id="answer16b" class="answer-input" placeholder="">
+                        <button class="btn-check" onclick="checkAnswer('16b', '12.6')">
+                            <i class="fas fa-check"></i> Verificar
+                        </button>
+                        <div id="feedback16b" class="feedback"></div>
+                    </div>
+
+                    <div class="structure-hint">
+                        <i class="fas fa-info-circle"></i> Datos: Masa molar MnO₂ = 86,9 g/mol; MnCl₂ = 125,8 g/mol; Vmolar = 22,4 L/mol
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ejercicio de Estequiometría 17 -->
+            <div class="exercise-card stoichiometry-exercise">
+                <h2 class="exercise-title"><span class="exercise-number">17</span><i class="fas fa-balance-scale"></i> Estequiometría - Ejercicio 17</h2>
+                <div class="exercise-content">
+                    <p>Se queman <strong>6,00 g de etanol</strong> completamente en presencia de oxígeno en exceso.</p>
+                    
+                    <div class="question-block">
+                        <p><strong>a) Calcule el volumen de oxígeno consumido a CNPT.</strong></p>
+                    </div>
+                    
+                    <div class="answer-section">
+                        <label for="answer17a" class="form-label">Respuesta (L):</label>
+                        <input type="text" id="answer17a" class="answer-input" placeholder="">
+                        <button class="btn-check" onclick="checkAnswer('17a', '8.78')">
+                            <i class="fas fa-check"></i> Verificar
+                        </button>
+                        <div id="feedback17a" class="feedback"></div>
+                    </div>
+
+                    <div class="question-block">
+                        <p><strong>b) Calcule la masa de dióxido de carbono producido.</strong></p>
+                    </div>
+                    
+                    <div class="answer-section">
+                        <label for="answer17b" class="form-label">Respuesta (g):</label>
+                        <input type="text" id="answer17b" class="answer-input" placeholder="">
+                        <button class="bugn-check" onclick="checkAnswer('17b', '11.5')">
+                            <i class="fas fa-check"></i> Verificar
+                        </button>
+                        <div id="feedback17b" class="feedback"></div>
+                    </div>
+
+                    <div class="structure-hint">
+                        <i class="fas fa-info-circle"></i> Datos: Masa molar C₂H₅OH = 46,1 g/mol; CO₂ = 44,0 g/mol; Vmolar = 22,4 L/mol
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ejercicio de Estequiometría 18 -->
+            <div class="exercise-card stoichiometry-exercise">
+                <h2 class="exercise-title"><span class="exercise-number">18</span><i class="fas fa-balance-scale"></i> Estequiometría - Ejercicio 18</h2>
+                <div class="exercise-content">
+                    <p>Se hacen reaccionar <strong>4,00 g de sulfuro de hierro (II)</strong> con <strong>3,00 g de oxígeno</strong> para formar óxido de hierro (III) y dióduro de azufre.</p>
+                    
+                    <div class="question-block">
+                        <p><strong>a) Calcule la masa de óxido de hierro (III) formado.</strong></p>
+                    </div>
+                    
+                    <div class="answer-section">
+                        <label for="answer18a" class="form-label">Respuesta (g):</label>
+                        <input type="text" id="answer18a" class="answer-input" placeholder="">
+                        <button class="btn-check" onclick="checkAnswer('18a', '3.20')">
+                            <i class="fas fa-check"></i> Verificar
+                        </button>
+                        <div id="feedback18a" class="feedback"></div>
+                    </div>
+
+                    <div class="question-block">
+                        <p><strong>b) Calcule el volumen de dióxido de azufre producido a CNPT.</strong></p>
+                    </div>
+                    
+                    <div class="answer-section">
+                        <label for="answer18b" class="form-label">Respuesta (L):</label>
+                        <input type="text" id="answer18b" class="answer-input" placeholder="">
+                        <button class="btn-check" onclick="checkAnswer('18b', '1.12')">
+                            <i class="fas fa-check"></i> Verificar
+                        </button>
+                        <div id="feedback18b" class="feedback"></div>
+                    </div>
+
+                    <div class="structure-hint">
+                        <i class="fas fa-info-circle"></i> Datos: Masa molar FeS = 87,9 g/mol; Fe₂O₃ = 159,7 g/mol; Vmolar = 22,4 L/mol
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ejercicio de Estequiometría 19 -->
+            <div class="exercise-card stoichiometry-exercise">
+                <h2 class="exercise-title"><span class="exercise-number">19</span><i class="fas fa-balance-scale"></i> Estequiometría - Ejercicio 19</h2>
+                <div class="exercise-content">
+                    <p>Se producen <strong>15,0 g de cloruro de sodio</strong> haciendo reaccionar ácido clorhídrico con hidróxido de sodio.</p>
+                    
+                    <div class="question-block">
+                        <p><strong>a) Calcule el volumen de ácido clorhídrico 0,50 M necesario.</strong></p>
+                    </div>
+                    
+                    <div class="answer-section">
+                        <label for="answer19a" class="form-label">Respuesta (mL):</label>
+                        <input type="text" id="answer19a" class="answer-input" placeholder="">
+                        <button class="btn-check" onclick="checkAnswer('19a', '514')">
+                            <i class="fas fa-check"></i> Verificar
+                        </button>
+                        <div id="feedback19a" class="feedback"></div>
+                    </div>
+
+                    <div class="question-block">
+                        <p><strong>b) Calcule la masa de agua formada.</strong></p>
+                    </div>
+                    
+                    <div class="answer-section">
+                        <label for="answer19b" class="form-label">Respuesta (g):</label>
+                        <input type="text" id="answer19b" class="answer-input" placeholder="">
+                        <button class="btn-check" onclick="checkAnswer('19b', '3.76')">
+                            <i class="fas fa-check"></i> Verificar
+                        </button>
+                        <div id="feedback19b" class="feedback"></div>
+                    </div>
+
+                    <div class="structure-hint">
+                        <i class="fas fa-info-circle"></i> Datos: Masa molar NaCl = 58,4 g/mol; H₂O = 18,0 g/mol
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ejercicio de Estequiometría 20 -->
+            <div class="exercise-card stoichiometry-exercise">
+                <h2 class="exercise-title"><span class="exercise-number">20</span><i class="fas fa-balance-scale"></i> Estequiometría - Ejercicio 20</h2>
+                <div class="exercise-content">
+                    <p>Se descomponen térmicamente <strong>6,00 g de bicarbonato de sodio</strong> para producir carbonato de sodio, dióxido de carbono y agua.</p>
+                    
+                    <div class="question-block">
+                        <p><strong>a) Calcule la masa de carbonato de sodio obtenido.</strong></p>
+                    </div>
+                    
+                    <div class="answer-section">
+                        <label for="answer20a" class="form-label">Respuesta (g):</label>
+                        <input type="text" id="answer20a" class="answer-input" placeholder="">
+                        <button class="btn-check" onclick="checkAnswer('20a', '3.79')">
+                            <i class="fas fa-check"></i> Verificar
+                        </button>
+                        <div id="feedback20a" class="feedback"></div>
+                    </div>
+
+                    <div class="question-block">
+                        <p><strong>b) Calcule el volumen de CO₂ liberado a 25°C y 1 atm.</strong></p>
+                    </div>
+                    
+                    <div class="answer-section">
+                        <label for="answer20b" class="form-label">Respuesta (L):</label>
+                        <input type="text" id="answer20b" class="answer-input" placeholder="">
+                        <button class="btn-check" onclick="checkAnswer('20b', '0.798')">
+                            <i class="fas fa-check"></i> Verificar
+                        </button>
+                        <div id="feedback20b" class="feedback"></div>
+                    </div>
+
+                    <div class="structure-hint">
+                        <i class="fas fa-info-circle"></i> Datos: Masa molar NaHCO₃ = 84,0 g/mol; Na₂CO₃ = 106,0 g/mol; R = 0,082 L·atm/mol·K
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección de Respuestas -->
+            <div class="answers-section">
+                <div class="answers-header">
+                    <h2 class="answers-title"><i class="fas fa-key"></i> Solucionario de Ejercicios</h2>
+                    <button class="btn-toggle-answers" onclick="toggleAnswers()">
+                        <i class="fas fa-eye"></i> Mostrar/Ocultar Respuestas
+                    </button>
+                </div>
+                
+                <div class="warning-message">
+                    <i class="fas fa-exclamation-triangle"></i> 
+                    <strong>Atención:</strong> Utilice esta sección solo para verificar sus respuestas después de intentar resolver los ejercicios.
+                </div>
+
+                <div id="answersContent" class="answers-content">
+                    <!-- Estequiometría 1 -->
+                    <div class="answer-item">
+                        <h4><i class="fas fa-balance-scale"></i> Ejercicio 1 - Estequiometría 1</h4>
+                        <p><strong>a) Masa de PbI₂:</strong> 2,11 g</p>
+                        <p><strong>b) Reactivo limitante:</strong> KI</p>
+                    </div>
+
+                    <!-- Estequiometría 2 -->
+                    <div class="answer-item">
+                        <h4><i class="fas fa-balance-scale"></i> Ejercicio 2 - Estequiometría 2</h4>
+                        <p><strong>a) Volumen de H₂:</strong> 4,63 L</p>
+                        <p><strong>b) Masa de MgCl₂:</strong> 19,5 g</p>
+                    </div>
+
+                    <!-- Estequiometría 3 -->
+                    <div class="answer-item">
+                        <h4><i class="fas fa-balance-scale"></i> Ejercicio 3 - Estequiometría 3</h4>
+                        <p><strong>a) Volumen de O₂:</strong> 11,2 L</p>
+                        <p><strong>b) Masa de H₂O:</strong> 9,00 g</p>
+                    </div>
+
+                    <!-- Estequiometría 4 -->
+                    <div class="answer-item">
+                        <h4><i class="fas fa-balance-scale"></i> Ejercicio 4 - Estequiometría 4</h4>
+                        <p><strong>a) Masa de AlCl₃:</strong> 14,9 g</p>
+                        <p><strong>b) Rendimiento:</strong> 80,5%</p>
+                    </div>
+
+                    <!-- Estequiometría 5 -->
+                    <div class="answer-item">
+                        <h4><i class="fas fa-balance-scale"></i> Ejercicio 5 - Estequiometría 5</h4>
+                        <p><strong>a) Volumen de CO₂:</strong> 0,280 L</p>
+                        <p><strong>b) [CaCl₂]:</strong> 0,250 M</p>
+                    </div>
+
+                    <!-- Estequiometría 6 -->
+                    <div class="answer-item">
+                        <h4><i class="fas fa-balance-scale"></i> Ejercicio 6 - Estequiometría 6</h4>
+                        <p><strong>a) Volumen de O₂:</strong> 1,37 L</p>
+                        <p><strong>b) Masa de KCl:</strong> 3,04 g</p>
+                    </div>
+
+                    <!-- Estequiometría 7 -->
+                    <div class="answer-item">
+                        <h4><i class="fas fa-balance-scale"></i> Ejercicio 7 - Estequiometría 7</h4>
+                        <p><strong>a) Masa de Na₂SO₄:</strong> 0,355 g</p>
+                        <p><strong>b) [NaOH] exceso:</strong> 0,017 M</p>
+                    </div>
+
+                    <!-- Estequiometría 8 -->
+                    <div class="answer-item">
+                        <h4><i class="fas fa-balance-scale"></i> Ejercicio 8 - Estequiometría 8</h4>
+                        <p><strong>a) Masa de N₂:</strong> 6,25 g</p>
+                        <p><strong>b) Volumen de H₂:</strong> 15,0 L</p>
+                    </div>
+
+                    <!-- Estequiometría 9 -->
+                    <div class="answer-item">
+                        <h4><i class="fas fa-balance-scale"></i> Ejercicio 9 - Estequiometría 9</h4>
+                        <p><strong>a) Volumen de H₂:</strong> 1,49 L</p>
+                        <p><strong>b) Masa de ZnSO₄:</strong> 9,87 g</p>
+                    </div>
+
+                    <!-- Estequiometría 10 -->
+                    <div class="answer-item">
+                        <h4><i class="fas fa-balance-scale"></i> Ejercicio 10 - Estequiometría 10</h4>
+                        <p><strong>a) Masa de MgO:</strong> 1,44 g</p>
+                        <p><strong>b) Volumen de CO₂:</strong> 0,672 L</p>
+                    </div>
+
+                    <!-- Estequiometría 11 -->
+                    <div class="answer-item">
+                        <h4><i class="fas fa-balance-scale"></i> Ejercicio 11 - Estequiometría 11</h4>
+                        <p><strong>a) Masa de Fe₂O₃:</strong> 2,86 g</p>
+                        <p><strong>b) Rendimiento:</strong> 87,4%</p>
+                    </div>
+
+                    <!-- Estequiometría 12 -->
+                    <div class="answer-item">
+                        <h4><i class="fas fa-balance-scale"></i> Ejercicio 12 - Estequiometría 12</h4>
+                        <p><strong>a) Masa de Ca(NO₃)₂:</strong> 0,390 g</p>
+                        <p><strong>b) pH final:</strong> 7 (neutral)</p>
+                    </div>
+
+                    <!-- Estequiometría 13 -->
+                    <div class="answer-item">
+                        <h4><i class="fas fa-balance-scale"></i> Ejercicio 13 - Estequiometría 13</h4>
+                        <p><strong>a) Volumen de O₂:</strong> 2,64 L</p>
+                        <p><strong>b) Masa de H₂O:</strong> 4,23 g</p>
+                    </div>
+
+                    <!-- Estequiometría 14 -->
+                    <div class="answer-item">
+                        <h4><i class="fas fa-balance-scale"></i> Ejercicio 14 - Estequiometría 14</h4>
+                        <p><strong>a) Masa de Cu:</strong> 1,99 g</p>
+                        <p><strong>b) Volumen de SO₂:</strong> 0,704 L</p>
+                    </div>
+
+                    <!-- Estequiometría 15 -->
+                    <div class="answer-item">
+                        <h4><i class="fas fa-balance-scale"></i> Ejercicio 15 - Estequiometría 15</h4>
+                        <p><strong>a) Volumen de H₂:</strong> 1,63 L</p>
+                        <p><strong>b> [NaOH]:</strong> 0,652 M</p>
+                    </div>
+
+                    <!-- Estequiometría 16 -->
+                    <div class="answer-item">
+                        <h4><i class="fas fa-balance-scale"></i> Ejercicio 16 - Estequiometría 16</h4>
+                        <p><strong>a) Volumen de Cl₂:</strong> 2,69 L</p>
+                        <p><strong>b) Masa de MnCl₂:</strong> 12,6 g</p>
+                    </div>
+
+                    <!-- Estequiometría 17 -->
+                    <div class="answer-item">
+                        <h4><i class="fas fa-balance-scale"></i> Ejercicio 17 - Estequiometría 17</h4>
+                        <p><strong>a) Volumen de O₂:</strong> 8,78 L</p>
+                        <p><strong>b) Masa de CO₂:</strong> 11,5 g</p>
+                    </div>
+
+                    <!-- Estequiometría 18 -->
+                    <div class="answer-item">
+                        <h4><i class="fas fa-balance-scale"></i> Ejercicio 18 - Estequiometría 18</h4>
+                        <p><strong>a) Masa de Fe₂O₃:</strong> 3,20 g</p>
+                        <p><strong>b) Volumen de SO₂:</strong> 1,12 L</p>
+                    </div>
+
+                    <!-- Estequiometría 19 -->
+                    <div class="answer-item">
+                        <h4><i class="fas fa-balance-scale"></i> Ejercicio 19 - Estequiometría 19</h4>
+                        <p><strong>a) Volumen de HCl:</strong> 514 mL</p>
+                        <p><strong>b) Masa de H₂O:</strong> 3,76 g</p>
+                    </div>
+
+                    <!-- Estequiometría 20 -->
+                    <div class="answer-item">
+                        <h4><i class="fas fa-balance-scale"></i> Ejercicio 20 - Estequiometría 20</h4>
+                        <p><strong>a) Masa de Na₂CO₃:</strong> 3,79 g</p>
+                        <p><strong>b) Volumen de CO₂:</strong> 0,798 L</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p><i class="fas fa-university"></i> Facultad de </p>
+            <p>© 2024 Ejercicios de Química | Todos los derechos reservados</p>
+        </footer>
+    </div>
+
+    <script>
+        function normalizeFormula(formula) {
+            // Convierte subíndices a números normales
+            return formula.replace(/₂/g, '2')
+                        .replace(/₃/g, '3')
+                        .replace(/₄/g, '4')
+                        .replace(/₅/g, '5')
+                        .replace(/₆/g, '6')
+                        .replace(/₇/g, '7')
+                        .replace(/₈/g, '8')
+                        .replace(/₉/g, '9')
+                        .replace(/₁/g, '1')
+                        .replace(/⁺/g, '+')
+                        .replace(/⁻/g, '-')
+                        .toLowerCase();
+        }
+
+        function checkAnswer(questionId, correctAnswer) {
+            const userAnswer = document.getElementById(`answer${questionId}`).value.trim();
+            const feedback = document.getElementById(`feedback${questionId}`);
+            const inputElement = document.getElementById(`answer${questionId}`);
+            
+            feedback.style.display = 'block';
+            
+            // Normalizar ambas respuestas para comparación
+            const normalizedUserAnswer = normalizeFormula(userAnswer);
+            const normalizedCorrectAnswer = normalizeFormula(correctAnswer);
+            
+            if (normalizedUserAnswer === normalizedCorrectAnswer) {
+                feedback.className = 'feedback correct';
+                feedback.innerHTML = '<i class="fas fa-check-circle"></i> ¡Correcto! Excelente trabajo.';
+                inputElement.classList.remove('incorrect');
+                inputElement.classList.add('correct');
+            } else {
+                feedback.className = 'feedback incorrect';
+                feedback.innerHTML = '<i class="fas fa-times-circle"></i> Respuesta incorrecta.';
+                inputElement.classList.remove('correct');
+                inputElement.classList.add('incorrect');
+            }
+        }
+
+        function toggleAnswers() {
+            const answersContent = document.getElementById('answersContent');
+            const button = document.querySelector('.btn-toggle-answers');
+            
+            if (answersContent.classList.contains('show')) {
+                answersContent.classList.remove('show');
+                button.innerHTML = '<i class="fas fa-eye"></i> Mostrar Respuestas';
+            } else {
+                answersContent.classList.add('show');
+                button.innerHTML = '<i class="fas fa-eye-slash"></i> Ocultar Respuestas';
+            }
+        }
+
+        // Animación de entrada
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.exercise-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    card.style.transition = 'all 0.5s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+
+        // Efecto de escritura para el título
+        const title = document.querySelector('.header-section h1');
+        const originalText = title.textContent;
+        title.textContent = '';
+        let charIndex = 0;
+
+        function typeWriter() {
+            if (charIndex < originalText.length) {
+                title.textContent += originalText.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeWriter, 50);
+            }
+        }
+
+        setTimeout(typeWriter, 500);
+    </script>
+</body>
+</html>
